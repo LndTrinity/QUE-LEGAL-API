@@ -12,10 +12,31 @@ const router = Router()
 router.get("/", async (req, res) => {
   try {
     const produtos = await prisma.produto.findMany({
+      where: {
+        deleted: false
+      },
       include: {
         tipo: true,
         marca: true,
         fotos: true
+      }
+    })
+    res.status(200).json(produtos)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+router.get("/destaques", async (req, res) => {
+  try {
+    const produtos = await prisma.produto.findMany({
+      include: {
+        tipo: true,
+        marca: true,
+        fotos: true
+      }, where: {
+        destaque : true,
+        deleted: false
+        
       }
     })
     res.status(200).json(produtos)
@@ -107,9 +128,12 @@ router.delete("/:id", async (req, res) => {
   const { id } = req.params
 
   try {
-    const produto = await prisma.produto.delete({
-      where: { id: Number(id) }
+    const produto = await prisma.produto.update({
+      where: { id: Number(id) },
+      data: { deleted : true}
+
     })
+   
     res.status(200).json(produto)
   } catch (error) {
     res.status(400).json(error)
@@ -148,7 +172,8 @@ router.get("/pesquisa/:termo", async (req, res) => {
       const produto = await prisma.produto.findMany({
         include: {
           tipo: true,
-          marca: true
+          marca: true,
+          fotos: true
         },
         where: {
           OR: [

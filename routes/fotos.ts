@@ -59,7 +59,7 @@ router.post("/", upload.single('codigoFoto'), async (req, res) => {
   try {
     const foto = await prisma.foto.create({
       data: {
-        descricao, 
+        descricao,
         produtoid: Number(produtoId),
         codigoFoto: codigo as string
       }
@@ -83,20 +83,46 @@ router.delete("/:id", async (req, res) => {
   }
 })
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", upload.single('codigo'), async (req, res) => {
   const { id } = req.params
   const { descricao } = req.body
+  const codigo = req.file?.buffer.toString("base64")
 
-  if (!descricao) {
-    res.status(400).json({ "erro": "Informe a descrição" })
-    return
+ const foto = await prisma.foto.findUnique({
+  where: { id: Number(id) }
+ })
+
+  let codigoFoto
+  let descricaoFoto
+  const produtoId = foto?.produtoid
+
+  if (!codigo){
+    codigoFoto = foto?.codigoFoto
+    
+  } else{
+    codigoFoto = codigo
   }
+
+
+  if (!descricao){
+    descricaoFoto = foto?.descricao
+  } else{
+    descricaoFoto = descricao
+  }
+
+  if (!descricao && !codigo) {
+    res.status(400).json({ "erro": "Informe a descrição e faça o upload da foto" })
+    return
+  } 
 
   try {
     const foto = await prisma.foto.update({
       where: { id: Number(id) },
-      data: { descricao }
-    })
+      data: {
+        descricao: descricaoFoto,
+        codigoFoto: codigoFoto,
+        produtoid: Number(produtoId)
+      }})
     res.status(200).json(foto)
   } catch (error) {
     res.status(400).json(error)
