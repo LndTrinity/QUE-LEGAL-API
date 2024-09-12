@@ -1,0 +1,17 @@
+meta {
+  name: put tipos
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3004/tipos/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "nome": "Tênis Feminino"
+    }
+}

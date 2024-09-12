@@ -1,0 +1,17 @@
+meta {
+  name: put marcas
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3004/marcas/4
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Pum"
+  }
+}

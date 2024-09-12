@@ -1,0 +1,17 @@
+meta {
+  name: post fotos
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3004/fotos
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  descricao: decrição
+  produtoId: 1
+  codigoFoto: @file(C:\Users\Lnd\Desktop\4 semestre\linguagens emergentes\img\Captura de tela 2024-09-05 212943.png)
+}

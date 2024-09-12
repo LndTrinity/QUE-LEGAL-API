@@ -1,0 +1,16 @@
+meta {
+  name: put Fotos
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3004/fotos/4
+  body: multipartForm
+  auth: none
+}
+
+body:multipart-form {
+  descricao: imagem principal
+  codigo: @file(C:\Users\Lnd\Desktop\4 semestre\linguagens emergentes\img\ecoSportPainel.png)
+}

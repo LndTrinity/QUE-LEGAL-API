@@ -1,0 +1,47 @@
+meta {
+  name: post Produto
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3004/produtos
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Dri-FIT",
+    "preco": 85.49,
+    "cor": "Roxo",
+    "tamanho": "M",
+    "descricao": "Aumente o calor nesta camiseta relaxada.",
+    "destaque": true,
+    "deleted": false, 
+    "quantidade": 10,
+    "marcaId":1,
+    "tipoId":2,
+    "fotos": [
+    {
+      "descricao": "Imagem principal",
+      "codigoFoto": "https://imgnike-a.akamaihd.net/768x768/023826NMA5.jpg",
+      "produtoid": 1
+    }
+  ]
+  }
+}
+
+body:multipart-form {
+  cor: Roxo
+  tamanho: M
+  descricao: Aumente o calor nesta camiseta relaxada
+  destaque: false
+  quantidade: 10
+  marcaId: 3
+  tipoId: 1
+  fotoDescricao: Imagem principal
+  codigoFoto: @file(C:\Users\Lnd\Desktop\4 semestre\linguagens emergentes\img\Captura de tela 2024-09-05 212943.png)
+  nome: Colors
+  preco: 85.49
+}

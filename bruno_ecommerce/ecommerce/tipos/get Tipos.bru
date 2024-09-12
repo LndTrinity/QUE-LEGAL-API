@@ -1,0 +1,17 @@
+meta {
+  name: get Tipos
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3004/tipos
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "camiseta feminina"
+    }
+}
